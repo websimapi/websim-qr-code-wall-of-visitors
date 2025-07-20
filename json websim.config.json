@@ -1,14 +1,10 @@
 {
   "database": {
     "schema": {
-      "visitors": {
+      "visitors_v2": {
         "id": {
-          "type": "text",
+          "type": "uuid",
           "description": "The unique identifier for the user (user_id). Primary key."
-        },
-        "username": {
-          "type": "text",
-          "description": "The username of the visitor."
         }
       }
     }

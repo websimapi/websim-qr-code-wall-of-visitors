@@ -66,15 +66,20 @@ function QRCard({ visitor }) {
   }, this);
 }
 function App() {
-  const { data: visitors, loading } = useQuery(room.collection("visitors"));
+  const { data: visitors, loading } = useQuery(room.query(`
+        SELECT
+            v.id,
+            u.username
+        FROM public.visitors_v2 v
+        JOIN public.user u ON v.id = u.id
+    `));
   useEffect(() => {
     const addUser = async () => {
       try {
         const currentUser = await window.websim.getCurrentUser();
         if (currentUser) {
-          await room.collection("visitors").upsert({
-            id: currentUser.id,
-            username: currentUser.username
+          await room.collection("visitors_v2").upsert({
+            id: currentUser.id
           });
         }
       } catch (error) {
@@ -96,63 +101,63 @@ function App() {
     /* @__PURE__ */ jsxDEV("header", { className: "text-center mb-12", children: [
       /* @__PURE__ */ jsxDEV("h1", { className: "text-4xl md:text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600", children: "Visitor Wall" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 83,
+        lineNumber: 88,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ jsxDEV("p", { className: "text-lg text-gray-300", children: "A randomly-sorted, ever-growing wall of everyone who has visited." }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 84,
+        lineNumber: 89,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ jsxDEV("p", { className: "text-md text-gray-400 mt-1", children: "Click a card or scan a QR code to visit a user's profile." }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 85,
+        lineNumber: 90,
         columnNumber: 17
       }, this)
     ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 82,
+      lineNumber: 87,
       columnNumber: 13
     }, this),
     loading && /* @__PURE__ */ jsxDEV("div", { className: "text-center text-xl", children: "Loading visitors..." }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 88,
+      lineNumber: 93,
       columnNumber: 25
     }, this),
     !loading && visitors && /* @__PURE__ */ jsxDEV("div", { className: "flex flex-wrap justify-center gap-6", children: shuffledVisitors.map((visitor) => /* @__PURE__ */ jsxDEV(QRCard, { visitor }, visitor.id, false, {
       fileName: "<stdin>",
-      lineNumber: 93,
+      lineNumber: 98,
       columnNumber: 25
     }, this)) }, void 0, false, {
       fileName: "<stdin>",
-      lineNumber: 91,
+      lineNumber: 96,
       columnNumber: 18
     }, this),
     !loading && (!visitors || visitors.length === 0) && /* @__PURE__ */ jsxDEV("div", { className: "text-center text-xl text-gray-500", children: [
       /* @__PURE__ */ jsxDEV("p", { children: "Be the first visitor to appear on the wall!" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 100,
+        lineNumber: 105,
         columnNumber: 21
       }, this),
       /* @__PURE__ */ jsxDEV("p", { children: "(You should appear shortly)" }, void 0, false, {
         fileName: "<stdin>",
-        lineNumber: 101,
+        lineNumber: 106,
         columnNumber: 21
       }, this)
     ] }, void 0, true, {
       fileName: "<stdin>",
-      lineNumber: 99,
+      lineNumber: 104,
       columnNumber: 17
     }, this)
   ] }, void 0, true, {
     fileName: "<stdin>",
-    lineNumber: 81,
+    lineNumber: 86,
     columnNumber: 9
   }, this);
 }
 const root = createRoot(document.getElementById("root"));
 root.render(/* @__PURE__ */ jsxDEV(App, {}, void 0, false, {
   fileName: "<stdin>",
-  lineNumber: 109,
+  lineNumber: 114,
   columnNumber: 13
 }));
