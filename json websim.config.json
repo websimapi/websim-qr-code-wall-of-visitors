@@ -1,0 +1,17 @@
+{
+  "database": {
+    "schema": {
+      "visitors": {
+        "id": {
+          "type": "text",
+          "description": "The unique identifier for the user (user_id). Primary key."
+        },
+        "username": {
+          "type": "text",
+          "description": "The username of the visitor."
+        }
+      }
+    }
+  }
+}
+
